@@ -412,40 +412,46 @@
   .gallery h2{color:var(--cream-2)}
   .gallery .lede{color:rgba(247,239,228,.78)}
   .gallery-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;max-width:1280px;margin:0 auto}
-  .gallery-grid{
-    margin:64px auto 0;max-width:1280px;
-    display:grid;gap:18px;
-    grid-template-columns:repeat(1,minmax(0,1fr));
-    perspective:1200px;
+  /* Marquee gallery */
+  .marquee{
+    margin:64px auto 0;max-width:1400px;
+    position:relative;overflow:hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
   }
-  @media(min-width:780px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  .g-tile{
-    position:relative;border-radius:10px;overflow:hidden;
-    aspect-ratio: 4/3;background:#2c1c14;
-    transform-style:preserve-3d;will-change:transform;
-    transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
-    box-shadow: 0 30px 60px rgba(0,0,0,.35);
+  .marquee-track{
+    display:flex;gap:22px;
+    width:max-content;
+    animation: marquee 60s linear infinite;
+    will-change: transform;
   }
-  .g-tile img{
-    width:100%;height:100%;object-fit:cover;
-    transition: transform 1s cubic-bezier(.2,.8,.2,1), filter .6s ease;
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-item{
+    flex:0 0 auto;
+    width: clamp(260px, 28vw, 380px);
+    aspect-ratio: 4/5;
+    border-radius:12px;overflow:hidden;
+    background:#2c1c14;
+    box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(230,200,151,.18);
+    transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease;
   }
-  .g-tile::after{
-    content:"";position:absolute;inset:0;
-    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.55) 100%);
-    transition: opacity .4s ease;
+  .marquee-item img{
+    width:100%;height:100%;
+    object-fit:cover;display:block;
+    transition: transform 1s cubic-bezier(.2,.8,.2,1), filter .5s ease;
   }
-  .g-tile:hover{
-    transform: translateZ(20px) scale(1.03) rotate(-.5deg);
-    box-shadow: var(--shadow-gold);
+  .marquee-item:hover{
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-gold), 0 0 0 1px rgba(230,200,151,.45);
   }
-  .g-tile:hover img{transform:scale(1.08);filter:brightness(1.05)}
-  .g-tile .glow{
-    position:absolute;inset:-1px;border-radius:inherit;
-    background: linear-gradient(120deg, rgba(230,200,151,.0), rgba(230,200,151,.6), rgba(230,200,151,.0));
-    opacity:0;mix-blend-mode:overlay;transition:opacity .4s ease;pointer-events:none;
+  .marquee-item:hover img{filter:brightness(1.06)}
+  @keyframes marquee{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
   }
-  .g-tile:hover .glow{opacity:.9}
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{animation:none}
+  }
 
   /* Contact + Visit */
   .visit{
@@ -733,19 +739,26 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
     </div>
-    <div class="gallery-grid" id="gallery-grid">
-      <a class="g-tile reveal scale-in delay-1" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
-        <img src="source/public/sue-hair-lounge/hero-finished-mens-cut.png" alt="Finished men's fade haircut" />
-        <span class="glow"></span>
-      </a>
-      <a class="g-tile reveal scale-in delay-2" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
-        <img src="source/public/sue-hair-lounge/sue-service-1.png" alt="Sue at Mattison Avenue Salon Suites and Spa" />
-        <span class="glow"></span>
-      </a>
-      <a class="g-tile reveal scale-in delay-3" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
-        <img src="source/public/sue-hair-lounge/sue-service-2.png" alt="Sue seated inside the salon lobby" />
-        <span class="glow"></span>
-      </a>
+    <div class="marquee reveal" id="gallery-grid" aria-label="Selected work from Sue's Hair Lounge">
+      <div class="marquee-track">
+        <div class="marquee-item"><img src="source/public/sue-hair-lounge/476241446_597829063052952_365387474684963523_n.jpg" alt="Long glossy brunette cut" loading="lazy" /></div>
+        <div class="marquee-item"><img src="source/public/sue-hair-lounge/476592130_597829053052953_9018240823410091228_n.jpg" alt="Pompadour with skin fade" loading="lazy" /></div>
+        <div class="marquee-item"><img src="source/public/sue-hair-lounge/480469223_605066962329162_6693258828066178293_n.jpg" alt="Kids cut, smiling" loading="lazy" /></div>
+        <div class="marquee-item"><img src="source/public/sue-hair-lounge/475634598_593676156801576_7398744041306883185_n.jpg" alt="High fade, side profile" loading="lazy" /></div>
+        <div class="marquee-item"><img src="source/public/sue-hair-lounge/476228496_597829033052955_7927042522814697966_n.jpg" alt="Pompadour high fade" loading="lazy" /></div>
+        <div class="marquee-item"><img src="source/public/sue-hair-lounge/480495997_605066995662492_7692955882602629662_n.jpg" alt="Long hair tied back with beard" loading="lazy" /></div>
+        <div class="marquee-item"><img src="source/public/sue-hair-lounge/475655259_593660890136436_8224202064870346323_n.jpg" alt="Back-of-head fade" loading="lazy" /></div>
+        <div class="marquee-item"><img src="source/public/sue-hair-lounge/476804632_600217226147469_552999444992222136_n.jpg" alt="Finished cut, smiling client" loading="lazy" /></div>
+        <!-- duplicate set for seamless loop -->
+        <div class="marquee-item" aria-hidden="true"><img src="source/public/sue-hair-lounge/476241446_597829063052952_365387474684963523_n.jpg" alt="" loading="lazy" /></div>
+        <div class="marquee-item" aria-hidden="true"><img src="source/public/sue-hair-lounge/476592130_597829053052953_9018240823410091228_n.jpg" alt="" loading="lazy" /></div>
+        <div class="marquee-item" aria-hidden="true"><img src="source/public/sue-hair-lounge/480469223_605066962329162_6693258828066178293_n.jpg" alt="" loading="lazy" /></div>
+        <div class="marquee-item" aria-hidden="true"><img src="source/public/sue-hair-lounge/475634598_593676156801576_7398744041306883185_n.jpg" alt="" loading="lazy" /></div>
+        <div class="marquee-item" aria-hidden="true"><img src="source/public/sue-hair-lounge/476228496_597829033052955_7927042522814697966_n.jpg" alt="" loading="lazy" /></div>
+        <div class="marquee-item" aria-hidden="true"><img src="source/public/sue-hair-lounge/480495997_605066995662492_7692955882602629662_n.jpg" alt="" loading="lazy" /></div>
+        <div class="marquee-item" aria-hidden="true"><img src="source/public/sue-hair-lounge/475655259_593660890136436_8224202064870346323_n.jpg" alt="" loading="lazy" /></div>
+        <div class="marquee-item" aria-hidden="true"><img src="source/public/sue-hair-lounge/476804632_600217226147469_552999444992222136_n.jpg" alt="" loading="lazy" /></div>
+      </div>
     </div>
   </section>
 
