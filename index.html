@@ -414,27 +414,38 @@
   .gallery-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;max-width:1280px;margin:0 auto}
   .gallery-grid{
     margin:64px auto 0;max-width:1280px;
-    display:grid;gap:22px;
+    display:grid;gap:18px;
     grid-template-columns:repeat(1,minmax(0,1fr));
+    perspective:1200px;
   }
-  @media(min-width:780px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(min-width:1100px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  .ig-card{
-    position:relative;
-    background:#fff;
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(230,200,151,.18);
+  @media(min-width:780px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .g-tile{
+    position:relative;border-radius:10px;overflow:hidden;
+    aspect-ratio: 4/3;background:#2c1c14;
+    transform-style:preserve-3d;will-change:transform;
     transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+    box-shadow: 0 30px 60px rgba(0,0,0,.35);
   }
-  .ig-card:hover{
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: var(--shadow-gold), 0 0 0 1px rgba(230,200,151,.35);
+  .g-tile img{
+    width:100%;height:100%;object-fit:cover;
+    transition: transform 1s cubic-bezier(.2,.8,.2,1), filter .6s ease;
   }
-  .ig-card iframe{
-    display:block;width:100%;border:0;
-    background:#fff;
+  .g-tile::after{
+    content:"";position:absolute;inset:0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.55) 100%);
+    transition: opacity .4s ease;
   }
+  .g-tile:hover{
+    transform: translateZ(20px) scale(1.03) rotate(-.5deg);
+    box-shadow: var(--shadow-gold);
+  }
+  .g-tile:hover img{transform:scale(1.08);filter:brightness(1.05)}
+  .g-tile .glow{
+    position:absolute;inset:-1px;border-radius:inherit;
+    background: linear-gradient(120deg, rgba(230,200,151,.0), rgba(230,200,151,.6), rgba(230,200,151,.0));
+    opacity:0;mix-blend-mode:overlay;transition:opacity .4s ease;pointer-events:none;
+  }
+  .g-tile:hover .glow{opacity:.9}
 
   /* Contact + Visit */
   .visit{
@@ -723,24 +734,18 @@
       </a>
     </div>
     <div class="gallery-grid" id="gallery-grid">
-      <div class="ig-card reveal scale-in delay-1">
-        <iframe src="https://www.instagram.com/p/Cw6SLIiNyEO/embed/captioned/" height="680" loading="lazy" allowtransparency="true" allow="encrypted-media" title="Women's long-hair cut — Sue's Hair Lounge"></iframe>
-      </div>
-      <div class="ig-card reveal scale-in delay-2">
-        <iframe src="https://www.instagram.com/p/CvQHDx2JHYN/embed/captioned/" height="680" loading="lazy" allowtransparency="true" allow="encrypted-media" title="Skin fade — Sue's Hair Lounge"></iframe>
-      </div>
-      <div class="ig-card reveal scale-in delay-3">
-        <iframe src="https://www.instagram.com/p/CuufLo3AguM/embed/captioned/" height="680" loading="lazy" allowtransparency="true" allow="encrypted-media" title="Women's cut + layers — Sue's Hair Lounge"></iframe>
-      </div>
-      <div class="ig-card reveal scale-in delay-1">
-        <iframe src="https://www.instagram.com/p/CvK97d3pA5C/embed/captioned/" height="680" loading="lazy" allowtransparency="true" allow="encrypted-media" title="Low taper fade — Sue's Hair Lounge"></iframe>
-      </div>
-      <div class="ig-card reveal scale-in delay-2">
-        <iframe src="https://www.instagram.com/p/CtCP6dJAWd1/embed/captioned/" height="680" loading="lazy" allowtransparency="true" allow="encrypted-media" title="Gentleman summer haircut — Sue's Hair Lounge"></iframe>
-      </div>
-      <div class="ig-card reveal scale-in delay-3">
-        <iframe src="https://www.instagram.com/p/CvAlJi8NHPO/embed/captioned/" height="680" loading="lazy" allowtransparency="true" allow="encrypted-media" title="Medium fade — Sue's Hair Lounge"></iframe>
-      </div>
+      <a class="g-tile reveal scale-in delay-1" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
+        <img src="source/public/sue-hair-lounge/hero-finished-mens-cut.png" alt="Finished men's fade haircut" />
+        <span class="glow"></span>
+      </a>
+      <a class="g-tile reveal scale-in delay-2" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
+        <img src="source/public/sue-hair-lounge/sue-service-1.png" alt="Sue at Mattison Avenue Salon Suites and Spa" />
+        <span class="glow"></span>
+      </a>
+      <a class="g-tile reveal scale-in delay-3" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
+        <img src="source/public/sue-hair-lounge/sue-service-2.png" alt="Sue seated inside the salon lobby" />
+        <span class="glow"></span>
+      </a>
     </div>
   </section>
 
