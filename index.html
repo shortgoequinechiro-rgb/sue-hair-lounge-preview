@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Sue's Hair Lounge — Coppell, TX</title>
+<meta name="description" content="Men's haircuts, fades, beard trimming, and clean grooming appointments at Sue's Hair Lounge in Coppell, TX." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:        #0e0805;
+    --bg-soft:   #1a100b;
+    --cream:     #f7efe4;
+    --cream-2:   #fff8ef;
+    --ink:       #34231f;
+    --ink-soft:  #5d4a42;
+    --muted:     #8d7264;
+    --line:      #c8b8a9;
+    --gold:      #c9a16a;
+    --gold-soft: #e6c897;
+    --blush:     #f1d6c3;
+    --rose:      #d9b3a4;
+    --shadow-1:  0 30px 80px rgba(20, 12, 8, .35);
+    --shadow-gold: 0 18px 60px rgba(201, 161, 106, .35);
+    --serif: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* Cinematic site shell — slow soft-gradient backdrop */
+  .stage{
+    position:relative;
+    isolation:isolate;
+    background:
+      radial-gradient(1200px 700px at 80% -10%, rgba(201,161,106,.18), transparent 60%),
+      radial-gradient(900px 600px at -10% 20%, rgba(241,214,195,.35), transparent 55%),
+      linear-gradient(180deg, #fbf3e7 0%, #f7efe4 60%, #f4e9da 100%);
+  }
+
+  /* Mouse-follow glow that hovers behind everything */
+  .cursor-glow{
+    position:fixed;inset:auto;
+    width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(201,161,106,.32), rgba(201,161,106,.08) 55%, transparent 70%);
+    pointer-events:none;mix-blend-mode:multiply;
+    transform:translate3d(-9999px,-9999px,0);
+    transition:transform .18s ease-out, opacity .4s ease;
+    z-index:1;
+    opacity:.85;
+    filter:blur(8px);
+  }
+
+  /* Particle canvas */
+  .particles{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+
+  /* Top nav */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    background: rgba(255,248,239,0.65);
+    border-bottom:1px solid rgba(201,161,106,.18);
+    transition: background .4s ease, border-color .4s ease, color .4s ease;
+  }
+  .nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 28px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand-mark{
+    width:44px;height:44px;border-radius:10px;
+    background:linear-gradient(135deg,#34231f, #1a100b);
+    color:#f7efe4;display:grid;place-items:center;
+    box-shadow: inset 0 0 0 1px rgba(201,161,106,.35), 0 8px 24px rgba(20,12,8,.25);
+  }
+  .brand-name{font-family:var(--serif);font-size:22px;letter-spacing:.01em;line-height:1;color:var(--ink)}
+  .brand-sub{font-size:11px;text-transform:uppercase;letter-spacing:.28em;color:var(--muted);margin-top:6px}
+  .nav-links{display:none;gap:34px;font-size:14px;color:#6d5b53;font-weight:500}
+  .nav-links a{position:relative;padding:6px 0}
+  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a:hover::after{transform:scaleX(1)}
+
+  /* Magnetic / glowing button */
+  .btn{
+    --bg: var(--ink);
+    --fg: var(--cream-2);
+    position:relative;display:inline-flex;align-items:center;gap:10px;
+    padding:14px 24px;min-height:48px;border-radius:999px;
+    font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    background:var(--bg);color:var(--fg);
+    box-shadow: 0 16px 38px rgba(20,12,8,.28), inset 0 0 0 1px rgba(230,200,151,.25);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, background .35s ease;
+    will-change: transform;
+    cursor:pointer;
+    isolation:isolate;
+  }
+  .btn::before{
+    content:"";position:absolute;inset:-2px;border-radius:inherit;z-index:-1;
+    background: conic-gradient(from 200deg, rgba(201,161,106,.0), rgba(230,200,151,.85), rgba(201,161,106,.0) 50%);
+    opacity:0;transition:opacity .5s ease;filter:blur(10px);
+  }
+  .btn:hover::before{opacity:.9}
+  .btn:hover{transform:translate3d(0,-2px,0) scale(1.02);box-shadow: var(--shadow-gold), inset 0 0 0 1px rgba(230,200,151,.45)}
+  .btn.ghost{
+    --bg: rgba(255,248,239,.6); --fg: var(--ink);
+    box-shadow: inset 0 0 0 1px rgba(52,35,31,.22);
+    backdrop-filter: blur(10px);
+  }
+  .btn.ghost:hover{background:rgba(255,248,239,.9)}
+  .btn .arrow{display:inline-block;transition:transform .35s ease}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  /* Hero */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:grid;
+    align-items:center;
+    padding:120px 28px 80px;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(1100px 700px at 75% 30%, rgba(217,179,164,.55), transparent 60%),
+      radial-gradient(900px 700px at 10% 90%, rgba(201,161,106,.35), transparent 60%),
+      linear-gradient(180deg, #fbf3e7 0%, #f4e3cf 100%);
+    will-change: transform;
+  }
+  .hero-grain{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(52,35,31,.025) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(52,35,31,.02) 0 1px, transparent 1px 3px);
+    mix-blend-mode:multiply;opacity:.6;
+  }
+  .hero-inner{
+    position:relative;z-index:2;
+    max-width:1280px;margin:0 auto;width:100%;
+    display:grid;gap:60px;
+    grid-template-columns:1fr;
+  }
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:8px 14px;border-radius:999px;
+    background:rgba(255,248,239,.55);backdrop-filter:blur(8px);
+    border:1px solid rgba(201,161,106,.45);
+    font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#7a5e4d;
+    width:fit-content;
+  }
+  .hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size: clamp(54px, 9vw, 132px);
+    line-height:.94;
+    letter-spacing:-.01em;
+    color:var(--ink);
+    margin:24px 0 0;
+  }
+  .hero h1 .word{display:inline-block;overflow:hidden;vertical-align:bottom}
+  .hero h1 .word > span{display:inline-block;transform:translateY(110%);will-change:transform}
+  .hero h1 em{
+    font-style:italic;font-weight:400;
+    background: linear-gradient(120deg, #b6845a 10%, #e6c897 45%, #8d6238 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lede{
+    font-size: clamp(17px, 1.4vw, 21px);
+    color:var(--ink-soft);
+    max-width:560px;line-height:1.7;
+    margin:28px 0 0;
+    opacity:0;transform:translateY(20px);
+  }
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;opacity:0;transform:translateY(20px)}
+
+  .hero-image-wrap{
+    position:relative;min-height:520px;
+    perspective:1400px;
+  }
+  .hero-frame{
+    position:absolute;inset:auto 0 0 0;
+    height:120%;width:100%;
+    transform-style:preserve-3d;
+    will-change: transform;
+  }
+  .hero-card{
+    position:absolute;inset:5% 0 0 0;
+    border-radius:6px;overflow:hidden;
+    box-shadow: var(--shadow-1);
+    background:#1a100b;
+  }
+  .hero-card img{
+    width:100%;height:100%;object-fit:cover;object-position:right center;
+    transform:scale(1.08);will-change:transform;
+    transition:transform 1.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .hero-card::after{
+    content:"";position:absolute;inset:0;
+    background: linear-gradient(180deg, transparent 50%, rgba(20,12,8,.45) 100%);
+  }
+  .hero-floating-tag{
+    position:absolute;left:-28px;bottom:84px;
+    background:rgba(255,248,239,.92);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(201,161,106,.35);
+    border-radius:6px;
+    padding:18px 22px;
+    box-shadow: 0 24px 60px rgba(52,35,31,.18);
+    transform: translate3d(0,0,40px);
+    will-change: transform;
+  }
+  .hero-floating-tag .label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+  .hero-floating-tag .title{font-family:var(--serif);font-size:24px;color:var(--ink);margin-top:6px}
+  .hero-pin{
+    position:absolute;top:14%;right:-6%;
+    background: linear-gradient(135deg, #1a100b 0%, #34231f 100%);
+    color:var(--cream-2);
+    border-radius:999px;
+    padding:14px 18px 14px 14px;
+    display:inline-flex;align-items:center;gap:10px;
+    box-shadow: var(--shadow-gold);
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  }
+  .hero-pin svg{animation: bounce 2.6s ease-in-out infinite}
+  .hero-decor{
+    position:absolute;left:-40px;top:-40px;
+    width:160px;height:160px;border:1px solid rgba(201,161,106,.6);border-radius:6px;
+    transform:rotate(-6deg);
+  }
+
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+  @media (min-width: 980px){
+    .nav-links{display:flex}
+    .hero-inner{grid-template-columns:1.05fr 1fr;gap:80px}
+  }
+
+  /* About */
+  .about{
+    position:relative;
+    padding:140px 28px;
+    overflow:hidden;
+  }
+  .about-inner{max-width:1280px;margin:0 auto;display:grid;gap:80px;grid-template-columns:1fr;align-items:center}
+  .about-photos{position:relative;min-height:520px;perspective:1200px}
+  .photo{
+    position:absolute;border-radius:6px;overflow:hidden;
+    box-shadow: var(--shadow-1);
+    transform-style:preserve-3d;will-change:transform;
+    transition:transform .8s cubic-bezier(.2,.8,.2,1), box-shadow .6s ease;
+  }
+  .photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
+  .photo:hover{box-shadow: 0 40px 100px rgba(52,35,31,.32)}
+  .photo:hover img{transform:scale(1.06)}
+  .photo-1{top:0;left:5%;width:62%;aspect-ratio:3/4}
+  .photo-2{bottom:0;right:0;width:55%;aspect-ratio:4/3;border:6px solid var(--cream-2)}
+  .about-decor{position:absolute;left:-30px;top:-30px;width:140px;height:140px;border:1px solid rgba(182,142,111,.5);border-radius:6px}
+
+  .eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .h2{font-family:var(--serif);font-weight:500;font-size:clamp(36px, 5vw, 68px);line-height:1.04;color:var(--ink);margin:14px 0 0;letter-spacing:-.005em}
+  .h2 em{font-style:italic;color:#8d6238}
+  .lede{font-size:18px;line-height:1.85;color:var(--ink-soft);max-width:560px;margin:24px 0 0}
+
+  .about-pillars{display:grid;gap:18px;margin-top:36px;grid-template-columns:repeat(3, minmax(0,1fr))}
+  .pillar{border-left:1px solid rgba(201,161,106,.6);padding:6px 0 6px 18px;transition:transform .5s ease, border-color .5s ease}
+  .pillar:hover{transform:translateX(4px);border-left-color:var(--ink)}
+  .pillar h4{font-family:var(--serif);font-size:22px;color:var(--ink);margin:0}
+  .pillar p{font-size:13.5px;color:#7b6961;margin:6px 0 0;line-height:1.6}
+
+  @media(min-width:980px){
+    .about-inner{grid-template-columns:.85fr 1fr}
+  }
+
+  /* Services */
+  .services{position:relative;padding:140px 28px;background:linear-gradient(180deg, #fdf6ea 0%, #f4e9da 100%);border-top:1px solid rgba(201,161,106,.2);border-bottom:1px solid rgba(201,161,106,.2)}
+  .services-inner{max-width:1280px;margin:0 auto}
+  .center{text-align:center;max-width:760px;margin:0 auto}
+  .grid-services{margin-top:64px;display:grid;gap:18px;grid-template-columns:repeat(1,minmax(0,1fr))}
+  @media(min-width:760px){.grid-services{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+  .svc{
+    position:relative;border-radius:10px;
+    background:linear-gradient(180deg,#fffdf8, #fbf3e7);
+    border:1px solid rgba(201,161,106,.25);
+    padding:30px;
+    box-shadow: 0 30px 60px rgba(52,35,31,.06);
+    transform-style:preserve-3d;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, border-color .4s ease;
+    overflow:hidden;
+    will-change: transform;
+  }
+  .svc::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;
+    background: radial-gradient(280px 220px at var(--mx,50%) var(--my,50%), rgba(230,200,151,.35), transparent 70%);
+    opacity:0;transition:opacity .35s ease;
+    pointer-events:none;
+  }
+  .svc:hover::before{opacity:1}
+  .svc:hover{box-shadow: 0 40px 90px rgba(52,35,31,.18); border-color: rgba(201,161,106,.6)}
+  .svc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+  .svc-icon{
+    width:44px;height:44px;border-radius:10px;
+    background:linear-gradient(135deg,#fff,#f1e3cb);
+    border:1px solid rgba(201,161,106,.45);
+    display:grid;place-items:center;color:#8d6238;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
+  }
+  .svc h3{font-family:var(--serif);font-size:26px;color:var(--ink);margin:18px 0 0;line-height:1.15;font-weight:500}
+  .svc .price{
+    flex-shrink:0;
+    background: linear-gradient(135deg,#1a100b,#34231f);
+    color:var(--cream-2);
+    padding:8px 14px;border-radius:8px;
+    font-family:var(--serif);font-size:18px;font-weight:600;
+    box-shadow: 0 8px 20px rgba(20,12,8,.25);
+    border:1px solid rgba(230,200,151,.25);
+  }
+  .svc p{font-size:14.5px;line-height:1.7;color:#75645d;margin:18px 0 0}
+
+  /* Testimonials */
+  .testimonials{position:relative;padding:140px 28px;overflow:hidden;background:linear-gradient(180deg, #f4e9da 0%, #f7efe4 100%)}
+  .test-grid{margin-top:64px;display:grid;gap:22px;grid-template-columns:repeat(1,minmax(0,1fr))}
+  @media(min-width:780px){.test-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .quote{
+    position:relative;background:rgba(255,253,248,.85);
+    border:1px solid rgba(201,161,106,.25);
+    border-radius:12px;padding:34px 30px 30px;
+    box-shadow: 0 24px 60px rgba(52,35,31,.08);
+    transition: transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .6s ease;
+    backdrop-filter: blur(8px);
+    will-change: transform;
+  }
+  .quote .stars{color:#b6845a;letter-spacing:3px;font-size:14px}
+  .quote blockquote{
+    font-family:var(--serif);font-style:italic;
+    font-size:21px;line-height:1.55;color:#3a2b25;
+    margin:18px 0 0;font-weight:500;
+  }
+  .quote .who{margin-top:22px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .quote::before{
+    content:"\201C";position:absolute;top:-22px;left:18px;
+    font-family:var(--serif);font-size:120px;line-height:1;
+    color:rgba(201,161,106,.35);
+  }
+  .quote:hover{transform:translateY(-6px) rotate(-.4deg);box-shadow:0 40px 90px rgba(52,35,31,.18)}
+
+  /* Gallery */
+  .gallery{
+    position:relative;
+    padding:140px 28px;
+    background: linear-gradient(180deg, #1a100b 0%, #0e0805 100%);
+    color:var(--cream-2);
+    overflow:hidden;
+  }
+  .gallery::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(800px 500px at 80% 0%, rgba(230,200,151,.18), transparent 60%),
+      radial-gradient(700px 500px at 0% 100%, rgba(217,179,164,.12), transparent 60%);
+  }
+  .gallery h2{color:var(--cream-2)}
+  .gallery .lede{color:rgba(247,239,228,.78)}
+  .gallery-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;max-width:1280px;margin:0 auto}
+  .gallery-grid{
+    margin:64px auto 0;max-width:1280px;
+    display:grid;gap:18px;
+    grid-template-columns:repeat(1,minmax(0,1fr));
+    perspective:1200px;
+  }
+  @media(min-width:780px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .g-tile{
+    position:relative;border-radius:10px;overflow:hidden;
+    aspect-ratio: 4/3;background:#2c1c14;
+    transform-style:preserve-3d;will-change:transform;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+    box-shadow: 0 30px 60px rgba(0,0,0,.35);
+  }
+  .g-tile img{
+    width:100%;height:100%;object-fit:cover;
+    transition: transform 1s cubic-bezier(.2,.8,.2,1), filter .6s ease;
+  }
+  .g-tile::after{
+    content:"";position:absolute;inset:0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.55) 100%);
+    transition: opacity .4s ease;
+  }
+  .g-tile:hover{
+    transform: translateZ(20px) scale(1.03) rotate(-.5deg);
+    box-shadow: var(--shadow-gold);
+  }
+  .g-tile:hover img{transform:scale(1.08);filter:brightness(1.05)}
+  .g-tile .glow{
+    position:absolute;inset:-1px;border-radius:inherit;
+    background: linear-gradient(120deg, rgba(230,200,151,.0), rgba(230,200,151,.6), rgba(230,200,151,.0));
+    opacity:0;mix-blend-mode:overlay;transition:opacity .4s ease;pointer-events:none;
+  }
+  .g-tile:hover .glow{opacity:.9}
+
+  /* Contact + Visit */
+  .visit{
+    position:relative;padding:140px 28px;
+    background: linear-gradient(180deg, #f7efe4 0%, #f1e3cb 100%);
+    overflow:hidden;
+  }
+  .visit-card{
+    max-width:1280px;margin:0 auto;
+    display:grid;grid-template-columns:1fr;gap:0;
+    border-radius:14px;overflow:hidden;
+    background:#fffdf8;
+    border:1px solid rgba(201,161,106,.25);
+    box-shadow: 0 40px 90px rgba(52,35,31,.12);
+  }
+  @media(min-width:980px){.visit-card{grid-template-columns:1.2fr 1fr}}
+  .visit-body{padding:60px 50px}
+  .visit-meta{display:grid;gap:32px;grid-template-columns:1fr 1fr;margin-top:36px}
+  .meta-label{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .meta-text{font-size:17px;line-height:1.7;color:#4f4039;margin-top:14px}
+  .meta-text a{border-bottom:1px solid rgba(201,161,106,.6);padding-bottom:1px}
+  .hours{margin-top:36px;padding-top:30px;border-top:1px solid rgba(201,161,106,.25)}
+  .hours-grid{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-top:18px;font-size:14px}
+  .hours-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed rgba(201,161,106,.25)}
+  .hours-row strong{color:var(--ink);font-weight:600}
+
+  .visit-map{
+    position:relative;min-height:480px;background:#d9c9ba;overflow:hidden;
+  }
+  .visit-map img{width:100%;height:100%;object-fit:cover;object-position:left center}
+  .visit-map::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,12,8,.05), rgba(20,12,8,.35))}
+  .visit-pin{
+    position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+    width:54px;height:54px;border-radius:50%;
+    background:linear-gradient(135deg,#fff,#f1e3cb);
+    display:grid;place-items:center;color:#8d6238;
+    box-shadow:0 18px 40px rgba(20,12,8,.4), 0 0 0 6px rgba(255,248,239,.4);
+    animation:pinPulse 2.6s ease-in-out infinite;z-index:2;
+  }
+  @keyframes pinPulse{
+    0%,100%{box-shadow:0 18px 40px rgba(20,12,8,.4), 0 0 0 6px rgba(255,248,239,.4)}
+    50%{box-shadow:0 22px 50px rgba(20,12,8,.5), 0 0 0 14px rgba(255,248,239,.0)}
+  }
+  .visit-card-tag{
+    position:absolute;left:24px;right:24px;bottom:24px;z-index:2;
+    background:rgba(255,248,239,.92);backdrop-filter:blur(10px);
+    border:1px solid rgba(201,161,106,.35);border-radius:8px;padding:18px 22px;
+  }
+  .visit-card-tag h4{font-family:var(--serif);font-size:24px;color:var(--ink);margin:0;font-weight:500}
+  .visit-card-tag p{font-size:13.5px;color:#6d5b53;margin:6px 0 0}
+
+  /* Final CTA */
+  .final{
+    position:relative;padding:120px 28px;
+    background: radial-gradient(900px 500px at 70% 30%, rgba(201,161,106,.18), transparent 60%), linear-gradient(180deg, #1a100b 0%, #0e0805 100%);
+    color:var(--cream-2);overflow:hidden;
+  }
+  .final::after{content:"";position:absolute;inset:0;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");opacity:.5;mix-blend-mode:overlay}
+  .final-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:40px;position:relative}
+  .final h2{color:var(--cream-2)}
+  .final p{color:rgba(247,239,228,.78);max-width:520px;margin-top:14px}
+  .final .ghost{--bg:transparent;--fg:var(--cream-2);box-shadow:inset 0 0 0 1px rgba(230,200,151,.5)}
+  .final .ghost:hover{background:rgba(230,200,151,.12)}
+
+  /* Footer */
+  footer{
+    position:relative;background:#0e0805;color:rgba(247,239,228,.7);
+    padding:60px 28px 40px;
+    border-top:1px solid rgba(201,161,106,.18);
+  }
+  .foot-inner{max-width:1280px;margin:0 auto;display:grid;gap:30px;grid-template-columns:1fr;align-items:center}
+  @media(min-width:780px){.foot-inner{grid-template-columns:1fr auto auto}}
+  .foot-brand{display:flex;align-items:center;gap:14px}
+  .foot-brand .brand-mark{box-shadow: inset 0 0 0 1px rgba(230,200,151,.45), 0 8px 24px rgba(0,0,0,.4)}
+  .foot-name{font-family:var(--serif);font-size:22px;color:var(--cream-2);line-height:1}
+  .foot-sub{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:rgba(247,239,228,.45);margin-top:6px}
+  .foot-links{display:flex;gap:24px;font-size:13px;letter-spacing:.06em}
+  .foot-links a{transition:color .3s ease, transform .3s ease;color:rgba(247,239,228,.7)}
+  .foot-links a:hover{color:var(--gold-soft);transform:translateY(-1px)}
+  .foot-meta{font-size:12px;color:rgba(247,239,228,.45);margin-top:30px;border-top:1px solid rgba(201,161,106,.18);padding-top:20px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+
+  /* Reveal helper */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:translate3d(0,0,0)}
+  .reveal.delay-1{transition-delay:.08s}
+  .reveal.delay-2{transition-delay:.18s}
+  .reveal.delay-3{transition-delay:.28s}
+  .reveal.delay-4{transition-delay:.38s}
+  .reveal.delay-5{transition-delay:.48s}
+  .reveal.from-left{transform:translate3d(-40px,0,0)}
+  .reveal.from-right{transform:translate3d(40px,0,0)}
+  .reveal.scale-in{transform:scale(.95);opacity:0}
+  .reveal.scale-in.in{transform:scale(1);opacity:1}
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .reveal.delay-1, .reveal.delay-2, .reveal.delay-3, .reveal.delay-4, .reveal.delay-5{
+      opacity:1;transform:none;transition:none;
+    }
+    .hero-card img, .photo img, .g-tile img, .svc, .quote, .btn, .nav-links a::after, .pillar{transition:none !important}
+    .hero-pin svg, .visit-pin{animation:none !important}
+    .cursor-glow{display:none}
+    .particles{display:none}
+  }
+
+  /* Responsive tweaks */
+  @media(max-width:640px){
+    .nav-inner{padding:12px 18px}
+    .brand-name{font-size:18px}
+    .hero{padding:110px 18px 60px}
+    .hero-image-wrap{min-height:420px}
+    .about, .services, .testimonials, .gallery, .visit{padding:90px 18px}
+    .visit-body{padding:36px 24px}
+    .visit-meta{grid-template-columns:1fr}
+    .hours-grid{grid-template-columns:1fr}
+    .final{padding:80px 18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+<nav class="nav" id="nav" aria-label="Top">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+      </span>
+      <span>
+        <span class="brand-name">Sue's Hair Lounge</span>
+        <span class="brand-sub">Coppell, TX</span>
+      </span>
+    </a>
+    <div class="nav-links" role="navigation">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <a class="btn" href="https://themenshairlounge.schedulista.com/" target="_blank" rel="noopener">
+      Book Now
+      <span class="arrow">&rarr;</span>
+    </a>
+  </div>
+</nav>
+
+<main class="stage" id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <canvas class="particles" id="particles" aria-hidden="true"></canvas>
+
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="hero-eyebrow reveal scale-in"><span class="dot"></span> Mattison Avenue · Suite 125</span>
+        <h1 id="hero-h1" aria-label="Men's cuts without the rush.">
+          <span class="word"><span>Men's</span></span>
+          <span class="word"><span>cuts</span></span>
+          <span class="word"><span><em>without</em></span></span>
+          <br />
+          <span class="word"><span>the</span></span>
+          <span class="word"><span>rush.</span></span>
+        </h1>
+        <p class="lede" id="hero-lede">
+          A private Coppell salon suite for clean fades, classic cuts, beard detail, and grooming
+          appointments that feel personal &mdash; not assembly line.
+        </p>
+        <div class="hero-ctas" id="hero-ctas">
+          <a class="btn" href="https://themenshairlounge.schedulista.com/" target="_blank" rel="noopener">
+            Book Now
+            <span class="arrow">&rarr;</span>
+          </a>
+          <a class="btn ghost" href="#services">View Services</a>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <div class="hero-decor reveal scale-in" aria-hidden="true"></div>
+        <div class="hero-frame" id="hero-frame">
+          <div class="hero-card reveal scale-in delay-2">
+            <img src="source/public/sue-hair-lounge/hero-finished-mens-cut.png" alt="Finished men's fade haircut in a private salon suite" />
+          </div>
+          <div class="hero-pin reveal delay-3">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Coppell · Open Today
+          </div>
+          <div class="hero-floating-tag reveal from-left delay-4">
+            <p class="label">Today's chair time</p>
+            <p class="title">11:30 AM &ndash; 6:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-photos">
+        <div class="about-decor reveal scale-in" aria-hidden="true"></div>
+        <div class="photo photo-1 reveal from-left">
+          <img src="source/public/sue-hair-lounge/sue-service-2.png" alt="Sue seated inside Mattison Avenue Salon Suites and Spa" />
+        </div>
+        <div class="photo photo-2 reveal from-right delay-2">
+          <img src="source/public/sue-hair-lounge/sue-service-1.png" alt="Sue at Mattison Avenue Salon Suites and Spa" />
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow reveal">About the lounge</span>
+        <h2 class="h2 reveal delay-1">A private suite for men who want a <em>reliable</em> cut.</h2>
+        <p class="lede reveal delay-2">
+          Sue's Hair Lounge is built around one-on-one attention &mdash; not an assembly line. Every cut is
+          shaped around your growth pattern, preferred maintenance schedule, and how you actually style
+          your hair.
+        </p>
+        <div class="about-pillars">
+          <div class="pillar reveal delay-3"><h4>Private suite</h4><p>Calm, focused appointment flow.</p></div>
+          <div class="pillar reveal delay-4"><h4>Detail-led</h4><p>Blend, neckline, beard, and finish.</p></div>
+          <div class="pillar reveal delay-5"><h4>Easy rebooking</h4><p>Keep the same cut on schedule.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <div class="center">
+        <span class="eyebrow reveal">Services &amp; pricing</span>
+        <h2 class="h2 reveal delay-1">A short menu, <em>done right</em>.</h2>
+        <p class="lede reveal delay-2" style="margin-left:auto;margin-right:auto">
+          Built around men's cuts first, with grooming, kids cuts, color coverage, and refresh services
+          available by appointment.
+        </p>
+      </div>
+
+      <div class="grid-services" id="services-grid">
+        <!-- service cards injected by data-driven render at bottom -->
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="services-inner">
+      <div class="center">
+        <span class="eyebrow reveal">Reviews</span>
+        <h2 class="h2 reveal delay-1">Clients come back for the cut <em>and</em> the consistency.</h2>
+      </div>
+      <div class="test-grid">
+        <figure class="quote reveal delay-1">
+          <div class="stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Clean fade, easy booking, and a comfortable private suite. Exactly what I need.</blockquote>
+          <figcaption class="who">— Coppell regular</figcaption>
+        </figure>
+        <figure class="quote reveal delay-2">
+          <div class="stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Sue remembers how I like my cut and keeps the neckline sharp every time.</blockquote>
+          <figcaption class="who">— Returning client</figcaption>
+        </figure>
+        <figure class="quote reveal delay-3">
+          <div class="stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote>Better than a rushed barbershop. The cut grows out clean and still looks intentional.</blockquote>
+          <figcaption class="who">— New client</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-head">
+      <div>
+        <span class="eyebrow reveal" style="color:var(--gold-soft)">Gallery</span>
+        <h2 class="h2 reveal delay-1">The lounge and <em>the work</em>.</h2>
+        <p class="lede reveal delay-2">
+          Finished cuts, Sue's suite, and the Mattison Avenue setting. Leave sharp &mdash; still like it two weeks later.
+        </p>
+      </div>
+      <a class="btn ghost reveal delay-3" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener" style="--bg:rgba(255,248,239,.08);--fg:var(--cream-2);box-shadow:inset 0 0 0 1px rgba(230,200,151,.5)">
+        @suehairlounge
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+    </div>
+    <div class="gallery-grid" id="gallery-grid">
+      <a class="g-tile reveal scale-in delay-1" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
+        <img src="source/public/sue-hair-lounge/hero-finished-mens-cut.png" alt="Finished men's fade haircut" />
+        <span class="glow"></span>
+      </a>
+      <a class="g-tile reveal scale-in delay-2" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
+        <img src="source/public/sue-hair-lounge/sue-service-1.png" alt="Sue at Mattison Avenue Salon Suites and Spa" />
+        <span class="glow"></span>
+      </a>
+      <a class="g-tile reveal scale-in delay-3" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">
+        <img src="source/public/sue-hair-lounge/sue-service-2.png" alt="Sue seated inside the salon lobby" />
+        <span class="glow"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="visit" id="visit">
+    <div class="visit-card reveal">
+      <div class="visit-body">
+        <span class="eyebrow">Visit</span>
+        <h2 class="h2">Stop by the <em>lounge</em>.</h2>
+        <div class="visit-meta">
+          <div>
+            <p class="meta-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Address
+            </p>
+            <p class="meta-text">160 W Sandy Lake Rd, Suite 125<br/>Coppell, TX 75019</p>
+          </div>
+          <div>
+            <p class="meta-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V21a1 1 0 0 1-1.09 1 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 3.18 4.21 1 1 0 0 1 4.18 3h4.09a1 1 0 0 1 1 .75 12.84 12.84 0 0 0 .7 2.81 1 1 0 0 1-.23 1.05L8.21 9.09a16 16 0 0 0 6 6l1.48-1.53a1 1 0 0 1 1.05-.23 12.84 12.84 0 0 0 2.81.7 1 1 0 0 1 .75 1z"/></svg>
+              Contact
+            </p>
+            <p class="meta-text">
+              <a href="tel:18179693928">(817) 969-3928</a><br/>
+              <a href="mailto:suehairlounge@gmail.com">suehairlounge@gmail.com</a>
+            </p>
+          </div>
+        </div>
+        <div class="hours">
+          <p class="meta-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Hours
+          </p>
+          <dl class="hours-grid">
+            <div class="hours-row"><dt>Monday</dt><dd><strong>11:30 AM &ndash; 6:00 PM</strong></dd></div>
+            <div class="hours-row"><dt>Tuesday</dt><dd><strong>11:30 AM &ndash; 6:00 PM</strong></dd></div>
+            <div class="hours-row"><dt>Wednesday</dt><dd>Closed</dd></div>
+            <div class="hours-row"><dt>Thursday</dt><dd><strong>11:30 AM &ndash; 6:00 PM</strong></dd></div>
+            <div class="hours-row"><dt>Fri – Sun</dt><dd>Closed</dd></div>
+          </dl>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:36px">
+          <a class="btn" href="https://themenshairlounge.schedulista.com/" target="_blank" rel="noopener">Book Now <span class="arrow">&rarr;</span></a>
+          <a class="btn ghost" href="https://goo.gl/maps/FZ28x74D6BSS2bQS6" target="_blank" rel="noopener">Get Directions</a>
+        </div>
+      </div>
+      <a class="visit-map" href="https://goo.gl/maps/FZ28x74D6BSS2bQS6" target="_blank" rel="noopener" aria-label="Open in Google Maps">
+        <img src="source/public/sue-hair-lounge/sue-service-1.png" alt="Sue at Mattison Avenue Salon Suites and Spa" />
+        <span class="visit-pin" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <div class="visit-card-tag">
+          <h4>Mattison Avenue Salon &amp; Spa</h4>
+          <p>Suite 125 inside a convenient Coppell salon destination.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="final-inner">
+      <div class="reveal">
+        <span class="eyebrow" style="color:var(--gold-soft)">Ready when you are</span>
+        <h2 class="h2">Book your <em>next cut</em>.</h2>
+        <p>Book online, call the lounge, or follow along for recent men's cuts and appointment updates.</p>
+      </div>
+      <div class="reveal delay-2" style="display:flex;gap:14px;flex-wrap:wrap">
+        <a class="btn" href="https://themenshairlounge.schedulista.com/" target="_blank" rel="noopener">Book Now <span class="arrow">&rarr;</span></a>
+        <a class="btn ghost" href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+      </span>
+      <div>
+        <div class="foot-name">Sue's Hair Lounge</div>
+        <div class="foot-sub">Coppell · Mattison Ave</div>
+      </div>
+    </div>
+    <div class="foot-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <div class="foot-links">
+      <a href="https://www.instagram.com/suehairlounge/" target="_blank" rel="noopener">Instagram</a>
+      <a href="tel:18179693928">(817) 969-3928</a>
+    </div>
+  </div>
+  <div class="foot-meta">
+    <span>© <span id="yr"></span> Sue's Hair Lounge</span>
+    <span>160 W Sandy Lake Rd, Suite 125 · Coppell, TX 75019</span>
+  </div>
+</footer>
+
+<script>
+  // ---------- Year ----------
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Reveal on scroll ----------
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.12, rootMargin: '0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // ---------- Hero word stagger ----------
+  (function(){
+    const words = document.querySelectorAll('#hero-h1 .word > span');
+    if(reduced){
+      words.forEach(w=>{w.style.transform='none'});
+      document.getElementById('hero-lede').style.opacity = 1;
+      document.getElementById('hero-lede').style.transform = 'none';
+      document.getElementById('hero-ctas').style.opacity = 1;
+      document.getElementById('hero-ctas').style.transform = 'none';
+      return;
+    }
+    words.forEach((w, i)=>{
+      w.style.transition = 'transform 1.05s cubic-bezier(.2,.8,.2,1)';
+      w.style.transitionDelay = (0.12 + i*0.08) + 's';
+      requestAnimationFrame(()=>{ w.style.transform = 'translateY(0)'; });
+    });
+    const lede = document.getElementById('hero-lede');
+    const ctas = document.getElementById('hero-ctas');
+    [lede, ctas].forEach((el,i)=>{
+      el.style.transition = 'opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1)';
+      el.style.transitionDelay = (0.7 + i*0.12) + 's';
+      requestAnimationFrame(()=>{ el.style.opacity=1; el.style.transform='translateY(0)'; });
+    });
+  })();
+
+  // ---------- Cursor glow ----------
+  (function(){
+    if(reduced) return;
+    const glow = document.getElementById('cursor-glow');
+    let tx=0, ty=0, cx=-9999, cy=-9999;
+    document.addEventListener('mousemove', (e)=>{ tx = e.clientX - 280; ty = e.clientY - 280; }, {passive:true});
+    function loop(){
+      cx += (tx - cx) * 0.12;
+      cy += (ty - cy) * 0.12;
+      glow.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+      requestAnimationFrame(loop);
+    }
+    loop();
+    document.addEventListener('mouseleave', ()=>{ tx=-9999; ty=-9999; });
+  })();
+
+  // ---------- Hero parallax (bg + foreground tilt on mouse) ----------
+  (function(){
+    if(reduced) return;
+    const heroBg = document.getElementById('hero-bg');
+    const frame = document.getElementById('hero-frame');
+    const hero = document.querySelector('.hero');
+    let mx=0, my=0;
+    hero.addEventListener('mousemove', (e)=>{
+      const rect = hero.getBoundingClientRect();
+      mx = ((e.clientX - rect.left) / rect.width - 0.5);
+      my = ((e.clientY - rect.top) / rect.height - 0.5);
+    });
+    hero.addEventListener('mouseleave', ()=>{ mx=0; my=0; });
+    function loop(){
+      heroBg.style.transform = `translate3d(${mx*-18}px, ${my*-12}px, 0) scale(1.06)`;
+      frame.style.transform = `rotateY(${mx*5}deg) rotateX(${my*-4}deg) translate3d(${mx*-14}px, ${my*-10}px, 0)`;
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+
+  // ---------- Scroll-driven hero parallax ----------
+  (function(){
+    if(reduced) return;
+    const heroBg = document.getElementById('hero-bg');
+    const heroCard = document.querySelector('.hero-card');
+    const tag = document.querySelector('.hero-floating-tag');
+    const pin = document.querySelector('.hero-pin');
+    function onScroll(){
+      const y = window.scrollY;
+      heroBg.style.translate = `0 ${y*0.18}px`;
+      if(heroCard) heroCard.style.translate = `0 ${y*0.06}px`;
+      if(tag) tag.style.translate = `0 ${y*-0.04}px`;
+      if(pin) pin.style.translate = `0 ${y*-0.08}px`;
+    }
+    document.addEventListener('scroll', onScroll, {passive:true});
+  })();
+
+  // ---------- Service cards: 3D tilt + glow follow ----------
+  (function(){
+    const services = [
+      {title:"Exclusive Haircut for Mens", price:"$51.75", detail:"Precise haircut to match your face shape, hair type, and styling routine, with feedback for recreating the look at home."},
+      {title:"Gentlemen Signature Haircut", price:"$46.57", detail:"Signature haircut to match the style you want with scissor work, leave-in conditioner, and professional styling product."},
+      {title:"The Fade", price:"$62.10", detail:"Skin fade, taper fade, or a custom fade in between. Low, mid, high, or blended to fit your style."},
+      {title:"The Works", price:"$67.27", detail:"Haircut, paraffin wax, and soothing massage to help your face and hands feel refreshed."},
+      {title:"The Big Change", price:"$56.92", detail:"For a brand new look or a drastic refresh that shows off your jawline and feels clean."},
+      {title:"The Touch Up", price:"$25.87", detail:"Edge up and beard trim shaped to the requested style."},
+      {title:"Brow Up", price:"$25.87", detail:"Clean up unwanted facial hair, including brow, nose, ear, or waxing needs. Final pricing may vary by waxing range."},
+      {title:"The Roaring Kids Cut", price:"$31.05", detail:"Ages 8–16. A creative, personal haircut to help kids feel good inside and out."},
+      {title:"Glow Up", price:"$56.92", detail:"Women's cut and refresh to bring shine back to the hair, with product recommendations for upkeep."},
+      {title:"Color Coverage Grey", price:"$62.10", detail:"Grey blending coverage up to 75%."},
+    ];
+    const grid = document.getElementById('services-grid');
+    services.forEach((s, i)=>{
+      const el = document.createElement('article');
+      el.className = 'svc reveal';
+      if(i % 2 === 1) el.classList.add('delay-1');
+      el.innerHTML = `
+        <div class="svc-head">
+          <div>
+            <span class="svc-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.8 5.5H19l-4.6 3.4 1.8 5.6L12 13l-4.2 3.5 1.8-5.6L5 7.5h5.2z"/></svg>
+            </span>
+            <h3>${s.title}</h3>
+          </div>
+          <span class="price">${s.price}</span>
+        </div>
+        <p>${s.detail}</p>
+      `;
+      grid.appendChild(el);
+      io.observe(el);
+      if(reduced) return;
+      el.addEventListener('mousemove', (e)=>{
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        el.style.setProperty('--mx', (px*100)+'%');
+        el.style.setProperty('--my', (py*100)+'%');
+        el.style.transform = `translateY(-3px) rotateY(${(px-0.5)*5}deg) rotateX(${(py-0.5)*-4}deg)`;
+      });
+      el.addEventListener('mouseleave', ()=>{
+        el.style.transform = '';
+        el.style.setProperty('--mx','50%'); el.style.setProperty('--my','50%');
+      });
+    });
+  })();
+
+  // ---------- Gallery 3D tilt ----------
+  (function(){
+    if(reduced) return;
+    document.querySelectorAll('.g-tile').forEach(el=>{
+      el.addEventListener('mousemove', (e)=>{
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = `translateZ(20px) scale(1.04) rotateY(${px*8}deg) rotateX(${py*-6}deg)`;
+      });
+      el.addEventListener('mouseleave', ()=>{
+        el.style.transform = '';
+      });
+    });
+  })();
+
+  // ---------- Magnetic buttons ----------
+  (function(){
+    if(reduced) return;
+    document.querySelectorAll('.btn').forEach(btn=>{
+      btn.addEventListener('mousemove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width/2;
+        const y = e.clientY - r.top - r.height/2;
+        btn.style.transform = `translate3d(${x*0.18}px, ${y*0.22}px, 0) scale(1.02)`;
+      });
+      btn.addEventListener('mouseleave', ()=>{ btn.style.transform = ''; });
+    });
+  })();
+
+  // ---------- Particles (hero ambient light streaks) ----------
+  (function(){
+    if(reduced) return;
+    const c = document.getElementById('particles');
+    const ctx = c.getContext('2d');
+    let w, h, dpr, parts;
+    function size(){
+      dpr = Math.min(window.devicePixelRatio||1, 2);
+      const rect = c.getBoundingClientRect();
+      w = c.width = rect.width * dpr; h = c.height = rect.height * dpr;
+      c.style.width = rect.width+'px'; c.style.height = rect.height+'px';
+      ctx.scale(dpr, dpr);
+      parts = Array.from({length: Math.min(70, Math.round(rect.width/22))}, ()=>({
+        x: Math.random()*rect.width,
+        y: Math.random()*rect.height,
+        r: Math.random()*1.6 + .3,
+        vx: (Math.random()-.5)*.18,
+        vy: -Math.random()*.4 - .08,
+        a: Math.random()*0.7 + 0.15,
+      }));
+    }
+    function draw(){
+      const rect = c.getBoundingClientRect();
+      ctx.clearRect(0,0,rect.width, rect.height);
+      parts.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        if(p.y < -10){ p.y = rect.height + 10; p.x = Math.random()*rect.width; }
+        if(p.x < -10) p.x = rect.width + 10;
+        if(p.x > rect.width + 10) p.x = -10;
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*8);
+        grad.addColorStop(0, `rgba(230,200,151,${p.a})`);
+        grad.addColorStop(1, 'rgba(230,200,151,0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r*8, 0, Math.PI*2);
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    size();
+    draw();
+    window.addEventListener('resize', size);
+  })();
+
+  // ---------- Smooth in-page anchor ----------
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const id = a.getAttribute('href').slice(1);
+      const t = document.getElementById(id);
+      if(t){
+        e.preventDefault();
+        t.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block:'start'});
+      }
+    });
+  });
+</script>
+</body>
+</html>
