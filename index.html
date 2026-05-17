@@ -5,21 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>Sue's Hair Lounge — Coppell, TX</title>
 <meta name="description" content="Women's and men's haircuts, fades, beard detail, and grooming appointments at Sue's Hair Lounge in Coppell, TX." />
+<link rel="canonical" href="https://suehairlounge.com/" />
 
 <!-- Open Graph / link-preview -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Sue's Hair Lounge" />
 <meta property="og:title" content="Sue's Hair Lounge — Coppell, TX" />
 <meta property="og:description" content="Women's and men's haircuts, fades, beard detail, and grooming appointments at Sue's Hair Lounge in Coppell, TX." />
-<meta property="og:url" content="https://shortgoequinechiro-rgb.github.io/sue-hair-lounge-preview/" />
-<meta property="og:image" content="https://shortgoequinechiro-rgb.github.io/sue-hair-lounge-preview/source/public/sue-hair-lounge/hero-finished-mens-cut.png" />
+<meta property="og:url" content="https://suehairlounge.com/" />
+<meta property="og:image" content="https://suehairlounge.com/source/public/sue-hair-lounge/hero-finished-mens-cut.png" />
 <meta property="og:image:alt" content="Finished men's fade haircut at Sue's Hair Lounge" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="1200" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Sue's Hair Lounge — Coppell, TX" />
 <meta name="twitter:description" content="Women's and men's haircuts, fades, beard detail, and grooming appointments at Sue's Hair Lounge in Coppell, TX." />
-<meta name="twitter:image" content="https://shortgoequinechiro-rgb.github.io/sue-hair-lounge-preview/source/public/sue-hair-lounge/hero-finished-mens-cut.png" />
+<meta name="twitter:image" content="https://suehairlounge.com/source/public/sue-hair-lounge/hero-finished-mens-cut.png" />
 
 <!-- LocalBusiness structured data -->
 <script type="application/ld+json">
@@ -99,6 +100,41 @@
     "worstRating": "1"
   }
 }
+</script>
+
+<!-- Conversion tracking hooks: GA4 can pick these up once a measurement ID is added. -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function track(eventName, params) {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", eventName, params || {});
+      }
+    }
+
+    document.querySelectorAll('a[href*="schedulista.com"]').forEach(function (link) {
+      link.addEventListener("click", function () {
+        track("book_appointment_click", { link_url: link.href });
+      });
+    });
+
+    document.querySelectorAll('a[href^="tel:"]').forEach(function (link) {
+      link.addEventListener("click", function () {
+        track("phone_click", { link_url: link.href });
+      });
+    });
+
+    document.querySelectorAll('a[href*="goo.gl/maps"], a[href*="google.com/maps"]').forEach(function (link) {
+      link.addEventListener("click", function () {
+        track("directions_click", { link_url: link.href });
+      });
+    });
+
+    document.querySelectorAll('a[href*="instagram.com"]').forEach(function (link) {
+      link.addEventListener("click", function () {
+        track("instagram_click", { link_url: link.href });
+      });
+    });
+  });
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
