@@ -762,6 +762,10 @@
     .hero h1{font-size:clamp(34px, 11vw, 54px)}
     .marquee-item{width:210px}
   }
+
+/* mobile sticky Book Now bar */
+.mbook{display:none}
+@media(max-width:800px){.mbook{display:block;position:fixed;left:0;right:0;bottom:0;z-index:90;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(252,249,244,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid rgba(201,161,106,.4)}.mbook a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:999px;background:#34231f;color:#fff;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:14px;text-decoration:none}body{padding-bottom:88px}}
 </style>
 </head>
 <body>
@@ -1307,5 +1311,6 @@
     });
   });
 </script>
+<div class="mbook"><a href="https://sueshairlounge.schedulista.com/" aria-label="Book an appointment online">Book Now →</a></div>
 </body>
 </html>
